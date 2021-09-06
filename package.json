@@ -1,0 +1,75 @@
+{
+  "name": "sell-3.0",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "http-server dist",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "report": "vue-cli-service build --report",
+    "postbuild": "react-snap"
+  },
+  "reactSnap": {
+    "source": "dist",
+    "minifyHtml": {
+      "collapseWhitespace": false,
+      "removeComments": false
+    }
+  },
+  "dependencies": {
+    "@svgr/webpack": "^5.5.0",
+    "axios": "^0.21.1",
+    "better-scroll": "^0.1.15",
+    "compression": "^1.7.4",
+    "core-js": "^3.6.5",
+    "http-server": "^13.0.0",
+    "imagemin": "^8.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-pngquant": "^9.0.2",
+    "layzr.js": "^2.2.2",
+    "node-sass": "^4.14.1",
+    "react-snap": "^1.23.0",
+    "react-window": "^1.8.6",
+    "stylus-loader": "^3.0.2",
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "css-loader": "^5.2.6",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.0",
+    "eslint-plugin-vue": "^7.16.0",
+    "good-storage": "^1.1.1",
+    "less-loader": "^7.3.0",
+    "sass": "^1.35.1",
+    "sass-loader": "^10.1.1",
+    "style-loader": "^3.0.0",
+    "stylus": "^0.54.8",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
