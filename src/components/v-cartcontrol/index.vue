@@ -1,11 +1,12 @@
 <template>
   <div>
     <transition name="fade">
-      <div v-show="food.count>0" class="cart-decrease" @click.stop.prevent="descreaseCount">
+       <!-- div控制x轴移动，inner控制旋转 -->
+      <div v-show="localFood.count>0" class="cart-decrease" @click.stop.prevent="descreaseCount">
         <span class="inner icon-remove_circle_outline"></span>
       </div>
     </transition>
-    <div v-show="food.count>0" class="cart-count">{{food.count}}</div>
+    <div v-show="localFood.count>0" class="cart-count">{{localFood.count}}</div>
     <div class="cart-add icon-add_circle" @click.stop.prevent="addCount"></div>
   </div>
 </template>
@@ -23,27 +24,30 @@ export default {
       })
     }
   },
+  data(){
+    return {
+      localFood:this.food
+    }
+  },
   methods:{
     descreaseCount(){
       if(!event._constructed){
         return
       }
-      if(this.food.count){
-        this.food.count--
+      if(this.localFood.count){
+        this.localFood.count--
       }
     },
     addCount(event){
       if(!event._constructed){
         return
       }
-      if(!this.food.count){
-        Vue.set(this.food,'count',1)
+      if(!this.localFood.count){
+        Vue.set(this.localFood,'count',1)
       }else{
-        this.food.count++
+        this.localFood.count++
       }
-      console.log(event.target,'event.target');
       this.$emit(EVENT_ADD,event.target)
-      // console.log(EVENT_ADD);
     }
   }
 }

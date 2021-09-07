@@ -12,17 +12,12 @@ module.exports = {
   runtimeCompiler: true,
   devServer: {
     open: true, //自动打开浏览器
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080'
-      }
-    },
     contentBase: path.join(__dirname, 'dist'),
-    port: 8080,
     compress: true,
+    host: 'localhost',
+    port: 8080,
     before(app) {
       app.get('/api/seller', function (req, res) {
-          console.log(11111);
           const id = req.query.id
           res.json({
             error: ERR_OK,
@@ -32,7 +27,6 @@ module.exports = {
           })
         }),
         app.get('/api/goods', function (req, res) {
-          console.log(11111);
           res.json({
             error: ERR_OK,
             data: goods
@@ -56,6 +50,6 @@ module.exports = {
       .test(/.svg$/)
       .use()
       .loader('@svgr/webpack')
-  }
-
+  },
+  publicPath: ''
 }

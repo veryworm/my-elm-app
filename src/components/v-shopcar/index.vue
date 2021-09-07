@@ -177,18 +177,15 @@ export default {
       this.fold = !this.fold;
     },
     beforeDrop(el) {
-      console.log(this.dropBalls, "beforeDrop");
-      // el:inner ball:icon
+      // el:外层ball ball:add图标
       // ball:y轴方向的显示 inner：x轴方向的显示
       const ball = this.dropBalls[this.dropBalls.length - 1];
       const rect = ball.el.getBoundingClientRect();
       const x = rect.left - 32;
       const y = -(window.innerHeight - rect.top - 22);
-      el.style.display = "";
+      // 先让购物车的小球定位到点击区域
       el.style.transform = el.style.webkitTransform = `translate3d(0,${y}px,0)`;
-      console.log(el, "el");
       const inner = el.getElementsByClassName(innerClsHook)[0];
-      console.log(inner, "inner");
       inner.style.transform = inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
     },
     dropping(el, done) {
@@ -205,7 +202,6 @@ export default {
         ball.show = false;
         el.style.display = "none";
       }
-      // console.log(this.dropBalls,'after');
     },
     drop(el) {
       for (let i = 0; i < this.balls.length; i++) {
@@ -213,7 +209,7 @@ export default {
         if (!ball.show) {
           ball.show = true;
           ball.el = el;
-          this.dropBalls.push(ball); //收藏下落的小球
+          this.dropBalls.push(ball); //收藏下落的小球是为了重置它们的属性
           return;
         }
       }

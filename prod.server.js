@@ -7,7 +7,6 @@ const seller = appData.seller
 const goods = appData.goods
 
 // const compression = require("compression")
-
 const router = express.Router()
 
 router.get('/seller', function (req, res) {
@@ -29,7 +28,7 @@ app.use('/api', router)
 app.use(express.static('./dist'))
 
 const port = process.env.PORT || 8900
-
+console.log(port, 'port')
 module.exports = app.listen(port, function (err) {
   if (err) {
     console.log(err)

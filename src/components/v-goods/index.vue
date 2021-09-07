@@ -86,7 +86,8 @@ export default {
       scrollY: 0,
       foods: {},
       oldTop: 0,
-      len:0
+      len:0,
+      db:this.debounce(this._loadImg, 3000,this.scrollY)
     };
   },
   props: {
@@ -145,43 +146,40 @@ export default {
       });
     });
   },
+
   methods: {
     _lazyload(newVal) {
       if (this.scrollY - this.oldTop > 400) {
-        console.log(this.scrollY, ",if", this.oldTop);
         this._loadImg(newVal);
         this.oldTop = newVal;
       } else {
-        this.debounce(this._loadImg, 1000,newVal)();
+        this.db();
       }
     },
     debounce(fn, delay,newVal=0) {
       let timer = null;
       return () => {
         if (timer) {
-          console.log(1111);
           clearTimeout(timer);
-          timer = setTimeout(() => {
-            fn(newVal);
-          }, delay);
-        } else {
-          timer = setTimeout(() => {
-            fn(newVal);
-          }, delay);
-        }
+        } 
+        timer = setTimeout(() => {
+          fn(newVal);
+        }, delay);
       };
     },
     _loadImg(val) {
-      this.$nextTick(() => {
-        let top = this.$refs["right-content"].clientHeight + val;
-        let list = this.$refs["right-content"].getElementsByClassName("img1");
-        for (let i = this.len; i < this.hookImg.length; i++) {
-          if (this.hookImg[i] <= top) {
-            list[i].src = list[i].getAttribute("datasrc");
-            this.len = i
-          }
+      let top = this.$refs["right-content"].clientHeight + val;
+      let list = this.$refs["right-content"].getElementsByClassName("img1");
+      //获取每个商品的高度，之后遍历，遍历时判断如果当前高度小于视口高度那么对img[i]赋值
+      for (let i = this.len; i < this.hookImg.length; i++) {
+        const item = list[i];
+        if (item&&this.hookImg[i] <= top) {
+          item.src = item.getAttribute("datasrc");
+          this.len = i
+        }else{
+          break;
         }
-      });
+      }
     },
     selectFoodFunc(food, event) {
       if (!event._constructed) {
@@ -202,7 +200,7 @@ export default {
       let hook =
         this.$refs["right-content"].getElementsByClassName("good-item-hook");
       let height = hook[index];
-      this.rightContent.scrollToElement(height, 300);
+      this.rightContent.scrollToElement(height);
     },
     _initMenu() {
       this.leftMenu = new BScroll(this.$refs["left-menu"], {

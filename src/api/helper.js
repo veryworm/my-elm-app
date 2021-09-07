@@ -2,13 +2,16 @@ import axios from "axios"
 
 const ERR_OK = 0
 
+const urlMap = {
+    development: '',
+    production: 'http://121.41.116.109:8900'
+}
 const base = process.env.NODE_ENV
-
+const baseURL = urlMap[base]
+console.log(baseURL, base, 'baseURL');
 export function get(url) {
-    console.log(url, 'url');
     return function (params) {
-        console.log(url, 'url');
-        return axios.get(url, {
+        return axios.get(baseURL + url, {
             params
         }).then((res) => {
             console.log(res.data, 'res.data');
